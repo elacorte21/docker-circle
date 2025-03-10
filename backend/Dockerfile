@@ -1,23 +1,16 @@
-# Use the official Node.js image as a base
-FROM node:20
+FROM node:slim
 
-# Set working directory
+RUN apt-get update -y \
+&& apt-get install -y openssl
+
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock)
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
-
-# Install nodemon or ts-node-dev (for TypeScript projects)
-RUN npm install -g nodemon  # Or use ts-node-dev for TypeScript
-
-# Copy all files
 COPY . .
 
-# Expose the Express app port
+RUN npm ci
+
 EXPOSE 4000
 
-# Use nodemon to watch for changes in the source code
-CMD ["nodemon", "--legacy-watch", "dist/index.js"]
+CMD ["sh", "-c", "npm run db:deploy && npm run dev"]

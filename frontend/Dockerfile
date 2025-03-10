@@ -1,20 +1,14 @@
-# Use the official Node.js image as a base
-FROM node:20
+FROM node:slim
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock)
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
-
-# Copy all files
 COPY . .
 
-# Expose the Vite development server port
+RUN npm ci
+
 EXPOSE 3000
 
 # Start the Vite dev server
-CMD ["npm", "run", "dev"]
+CMD ["sh", "-c", "npm run dev"]

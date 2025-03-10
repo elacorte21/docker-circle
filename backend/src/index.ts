@@ -16,14 +16,13 @@ const corsOptions = {
 
 app.use(express.json())
 app.use(cors(corsOptions));
-
 app.use('/books', booksRouter)
 
 app.use((_req, _res, next) => {
     next(new ErrorHandler('Route not found', 404))
 })
 
-app.use(errorHandler)
+// app.use(errorHandler)
 
 app.listen(port, () => {
     console.log(`🚀 Example app listening at http://localhost:${port}`)

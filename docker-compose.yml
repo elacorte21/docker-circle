@@ -8,6 +8,8 @@ services:
       - VITE_API_URL=http://localhost:4000  # Set environment variable for API URL
     depends_on:
       - backend
+    networks:
+      - prisma-network
     volumes:
       - ./frontend:/app  # Mount the local frontend directory to the container
       - /app/node_modules  # Ensure node_modules persists between restarts
@@ -16,25 +18,47 @@ services:
   backend:
     build:
       context: ./backend
+    restart: on-failure:3
     ports:
       - "4000:4000"  # Expose Express app on port 4000
-      - "5555:5555"  # Expose Prisma Studio port
-    environment:
-      - DATABASE_URL=postgresql://postgres:postgres@db:5432/drill_db  # Database connection URL
+    # environment:
+    #   - DATABASE_URL=postgresql://postgres:postgres@db:5432/drill_db  # Database connection URL
     depends_on:
       - db
+    networks:
+      - prisma-network
     volumes:
       - ./backend:/app  # Mount the backend directory as well for live-reloading
       - /app/node_modules  # Persist node_modules for backend
-    command: npm run dev  # You can specify the command here if it's different
+    # command: npm run dev
     # You may also want to explicitly use the nodemon command (e.g., for TypeScript):
     # command: ["nodemon", "--legacy-watch", "dist/index.js"]
 
   db:
-    image: postgres:13
+    image: postgres:15
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: drill_db
     ports:
       - "5433:5432"  # Expose PostgreSQL on port 5432
+    networks:
+      - prisma-network
+
+  prisma-studio:
+    image: node:lts-alpine3.17
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: npx prisma studio --port 5555 --browser none
+    ports:
+      - "5555:5555"
+    networks:
+      - prisma-network
+    depends_on:
+      - db
+
+networks:
+  prisma-network:
+    name: prisma-network
