@@ -1,36 +1,51 @@
-# Docker / React / Node.js project
+# Docker / React / Node.js / Prisma / Express (Ubuntu)
 
 - **Frontend**: React with Vite
 - **Backend**: Express with Prisma
 - **Database**: PostgreSQL
 
-### Running the Application
+## Running Docker
 
-- Build the images for each service (`frontend`, `backend`, and `db`).
-- Start the containers with the appropriate settings and networking.
-- Expose ports for you to access the frontend and backend services (`3000` for React, `4000` for Express).
+- Install `frontend` and `backend` dependencies
+- Start the containers for each service (`frontend`, `backend`, and `db`, plus Prisma Studio).
+- Migrate the mock data in the DB or manage the data manually via Prisma Studio 
+- Available ports: `3000` for React, `4000` for Express, `5555` for Prisma Studio.
   
-Make sure to have the appropriate files (`package.json`, `Dockerfile`, etc.) in place in both `frontend` and `backend` directories.
+### Step 1: Clone the repo
+```bash
+git clone https://github.com/elacorte21/docker-circle.git
+```
 
+#### NOTE: If scripts won't run due to permission errors run this code
+```bash
+chmod +x script/install.sh
+```
+
+### Step 2: Install dependencies
+```bash
+script/install.sh
+```
+
+### Step 3: Run Docker Compose
 ```bash
 script/start.sh
 ```
 
-### Setup and import the database
-
+### Step 4A: Import the mock database
 ```bash
 script/migrate.sh
 ```
 
-### Manage table data with Prisma Studio
-
+### Step 4B: Manage data on Prisma Studio
 ```bash
-script/prisma.sh
+http://localhost:5555/
 ```
 
-### Script permission issue fix
-
+## Frontend and Swagger ports
 ```bash
-chmod +x script/install.sh
+http://localhost:3000/
+http://localhost:4000/books/api-docs/
 ```
+
+
 <!-- sudo chown -R username:username /path/to/directory -->
