@@ -33,3 +33,4 @@ script/prisma.sh
 ```bash
 chmod +x script/install.sh
 ```
+<!-- sudo chown -R username:username /path/to/directory -->
