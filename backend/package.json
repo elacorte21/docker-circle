@@ -1,0 +1,36 @@
+{
+    "name": "fe-dev-apply",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon --watch 'src/**/*.{ts,json}' --exec 'ts-node' src/index.ts",
+        "build": "npm install && tsc",
+        "start": "node dist/src/index.js",
+        "reset": "ts-node prisma-client.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@prisma/adapter-pg": "^6.4.1",
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "pg": "^8.13.3",
+        "swagger-ui-express": "^5.0.0"
+    },
+    "devDependencies": {
+        "@prisma/client": "^6.4.1",
+        "@types/cors": "^2.8.13",
+        "@types/express": "^4.17.17",
+        "@types/node": "^20.3.1",
+        "@types/pg": "^8.11.11",
+        "@types/swagger-ui-express": "^4.1.3",
+        "install": "^0.13.0",
+        "nodemon": "^3.1.9",
+        "npm": "^10.9.2",
+        "prisma": "^4.16.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.2"
+    }
+}
