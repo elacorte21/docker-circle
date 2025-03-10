@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm ci
 
 # Install nodemon or ts-node-dev (for TypeScript projects)
 RUN npm install -g nodemon  # Or use ts-node-dev for TypeScript
