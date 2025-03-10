@@ -1,14 +1,8 @@
 # Dependency directories
 node_modules/
 
-# DB directory
-*.sql
-
 # TypeScript output directory
 dist/
-
-# Environment configuration files
-.env
 
 # Editor specific files
 .vscode/
